@@ -1,5 +1,6 @@
 package com.example.studentcrud.service;
 
+import com.example.studentcrud.dto.ErrorResponseDTO;
 import com.example.studentcrud.dto.StudentRequestDTO;
 import com.example.studentcrud.dto.StudentResponseDTO;
 import com.example.studentcrud.entity.Student;
@@ -23,7 +24,7 @@ public class StudentService {
         String result = StudentValidation.validate(request);
 
         if(!result.equals("VALID")) {
-            return result;
+            return new ErrorResponseDTO(result, 400);
         }
 
         Student student = new Student();
