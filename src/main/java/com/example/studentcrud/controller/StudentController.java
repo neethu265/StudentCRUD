@@ -1,12 +1,12 @@
 package com.example.studentcrud.controller;
 
-import java.util.List;
-
+import com.example.studentcrud.dto.StudentRequestDTO;
+import com.example.studentcrud.dto.StudentResponseDTO;
+import com.example.studentcrud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.studentcrud.entity.Student;
-import com.example.studentcrud.service.StudentService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -15,24 +15,43 @@ public class StudentController {
     @Autowired
     StudentService service;
 
+    // CREATE
     @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return service.save(student);
+    public Object addStudent(@RequestBody StudentRequestDTO request) {
+        return service.save(request);
     }
 
+    // READ ALL
     @GetMapping
-    public List<Student> getAllStudents() {
+    public List<StudentResponseDTO> getStudents() {
+
         return service.getAll();
     }
 
-    @PutMapping
-    public Student updateStudent(@RequestBody Student student) {
-        return service.update(student);
+    // READ ONE
+    @GetMapping("/{id}")
+    public StudentResponseDTO getStudentById(
+            @PathVariable Long id) {
+
+        return service.getById(id);
     }
 
+    // UPDATE
+    @PutMapping("/{id}")
+    public StudentResponseDTO updateStudent(
+            @PathVariable Long id,
+            @RequestBody StudentRequestDTO request) {
+
+        return service.update(id, request);
+    }
+
+    // DELETE
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id) {
+    public String deleteStudent(
+            @PathVariable Long id) {
+
         service.delete(id);
-        return "Deleted Successfully";
+
+        return "Student Deleted Successfully";
     }
 }
