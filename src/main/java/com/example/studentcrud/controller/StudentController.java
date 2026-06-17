@@ -23,17 +23,9 @@ public class StudentController {
     public ResponseEntity<?> addStudent(
             @RequestBody StudentRequestDTO request) {
 
-        Object response = service.save(request);
-
-        if (response instanceof ErrorResponseDTO) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(response);
-        }
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(response);
+                .body(service.save(request));
     }
 
     // READ ALL

@@ -1,30 +1,37 @@
 package com.example.studentcrud.dto;
 
-public class ErrorResponseDTO {
+public class ErrorResponseDTO
+{
         private String message;
         private int status;
 
-        public ErrorResponseDTO() {
+        public ErrorResponseDTO()
+        {
         }
 
-        public ErrorResponseDTO(String message, int status) {
+        public ErrorResponseDTO(String message, int status)
+        {
             this.message = message;
             this.status = status;
         }
 
-        public String getMessage() {
+        public String getMessage()
+        {
             return message;
         }
 
-        public void setMessage(String message) {
+        public void setMessage(String message)
+        {
             this.message = message;
         }
 
-        public int getStatus() {
+        public int getStatus()
+        {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(int status)
+        {
             this.status = status;
         }
 }

@@ -21,11 +21,7 @@ public class StudentService {
     // CREATE
     public Object save(StudentRequestDTO request) {
 
-        String result = StudentValidation.validate(request);
-
-        if(!result.equals("VALID")) {
-            return new ErrorResponseDTO(result, 400);
-        }
+        StudentValidation.validate(request);
 
         Student student = new Student();
 
