@@ -1,6 +1,7 @@
 package com.example.studentcrud.validation;
 
 import com.example.studentcrud.dto.StudentRequestDTO;
+import com.example.studentcrud.exception.StudentException;
 
 public class StudentValidation {
 
@@ -9,21 +10,21 @@ public class StudentValidation {
         if(request.getName()==null ||
                 request.getName().trim().isEmpty()) {
 
-            throw new RuntimeException(
+            throw new StudentException(
                     "Name cannot be empty");
         }
 
         if(request.getDepartment()==null ||
                 request.getDepartment().trim().isEmpty()) {
 
-            throw new RuntimeException(
+            throw new StudentException(
                     "Department cannot be empty");
         }
 
         if(request.getPassword()==null ||
                 request.getPassword().length()<8) {
 
-            throw new RuntimeException(
+            throw new StudentException(
                     "Password must contain minimum 8 characters");
         }
     }
