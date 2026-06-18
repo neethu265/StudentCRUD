@@ -4,9 +4,13 @@ import com.example.studentcrud.dto.ErrorResponseDTO;
 import com.example.studentcrud.dto.StudentRequestDTO;
 import com.example.studentcrud.dto.StudentResponseDTO;
 import com.example.studentcrud.entity.Student;
+import com.example.studentcrud.exception.StudentException;
 import com.example.studentcrud.repository.StudentRepository;
 import com.example.studentcrud.validation.StudentValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,11 +66,15 @@ public class StudentService {
     }
 
     // READ BY ID
+
+    @Cacheable(value = "student", key = "#id")
     public StudentResponseDTO getById(Long id) {
+
+        System.out.println("Fetching from Database");
 
         Student student = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Student Not Found"));
+                        new StudentException("Student Not Found"));
 
         StudentResponseDTO dto = new StudentResponseDTO();
 
@@ -78,6 +86,7 @@ public class StudentService {
     }
 
     // UPDATE
+    @CachePut(value = "student", key = "#id")
     public StudentResponseDTO update(Long id,
                                      StudentRequestDTO request) {
 
@@ -125,8 +134,8 @@ public class StudentService {
 
         return dtoList;
     }
-
     // DELETE
+    @CacheEvict(value = "student", key = "#id")
     public void delete(Long id) {
 
         Student student = repository.findById(id)
