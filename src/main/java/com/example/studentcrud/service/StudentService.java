@@ -102,6 +102,30 @@ public class StudentService {
         return dto;
     }
 
+    public List<StudentResponseDTO> getByDepartment(
+            String department) {
+
+        List<Student> students =
+                repository.getStudentsByDepartment(department);
+
+        List<StudentResponseDTO> dtoList =
+                new ArrayList<>();
+
+        for(Student student : students) {
+
+            StudentResponseDTO dto =
+                    new StudentResponseDTO();
+
+            dto.setId(student.getId());
+            dto.setName(student.getName());
+            dto.setDepartment(student.getDepartment());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
     // DELETE
     public void delete(Long id) {
 

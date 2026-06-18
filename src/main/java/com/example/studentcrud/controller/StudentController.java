@@ -54,6 +54,16 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/department/{department}")
+    public ResponseEntity<List<StudentResponseDTO>>
+    getStudentsByDepartment(
+            @PathVariable String department) {
+
+        return ResponseEntity.ok(
+                service.getByDepartment(department)
+        );
+    }
+
     // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(
